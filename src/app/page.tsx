@@ -2,8 +2,12 @@ import MaxWithWrapper from "@/components/MaxWithWrapper";
 
 export default function Home() {
   return (
-    <MaxWithWrapper className="bg-red-500">
-      <div>hello</div>
+    <MaxWithWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
+      <div className="mx-auto mb-4 flex max-w-fit items-center justify-centers space-x-2 overflow-hidden rounded-full border boder-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
+        <p className="text-sm font-semibold text-gray-700">
+          Quill is now public
+        </p>
+      </div>
     </MaxWithWrapper>
   );
 }
