@@ -1,5 +1,7 @@
 // "use client";
 
+//TODO: swith and set up with next js auth - it's simpler
+
 // import { trpc } from "@/app/_trpc/client";
 // import { absoluteUrl } from "@/lib/utils";
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

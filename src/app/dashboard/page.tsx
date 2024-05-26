@@ -1,8 +1,8 @@
+import Dashboard from "@/components/Dashboard";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import React from "react";
 
-const Dashboard = async () => {
+const PageDash = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -10,7 +10,7 @@ const Dashboard = async () => {
 
   if (!user || !user.id) redirect("/");
 
-  return <div> 1</div>;
+  return <Dashboard />;
 };
 
-export default Dashboard;
+export default PageDash;
