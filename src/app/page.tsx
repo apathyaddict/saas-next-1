@@ -149,6 +149,23 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* footer */}
+
+      <div className="mx-auto mb-32 mt-32 max-w-5xl sm:mt-56">
+        <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+          <div className="flex flex-row justify-around items-center gap-10">
+            <h3 className="text-xl font-semibold"> quill.</h3>
+            <span className="mt-2 text-zinc-700">About</span>
+            <span className="mt-2 text-zinc-700">Contact Us</span>
+
+            <span className="mt-2 text-zinc-700">Disclaimer and Legal</span>
+          </div>
+        </div>
+        <p className="mx-auto text-center  mt-10 text-zinc-700">
+          Made by Eve Aimée Seni in nextjs
+        </p>
+      </div>
     </>
   );
 }
