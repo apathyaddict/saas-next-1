@@ -1,30 +1,16 @@
-// "use client";
+"use client";
+import React, { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
 
-//TODO: swith and set up with next js auth - it's simpler
+// Define the props interface
+interface ProviderProps {
+  children: ReactNode;
+  session?: Session;
+}
 
-// import { trpc } from "@/app/_trpc/client";
-// import { absoluteUrl } from "@/lib/utils";
-// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { httpBatchLink } from "@trpc/client";
-// import { PropsWithChildren, useState } from "react";
+const Provider: React.FC<ProviderProps> = ({ children, session }) => {
+  return <SessionProvider session={session}>{children}</SessionProvider>;
+};
 
-// const Providers = ({ children }: PropsWithChildren) => {
-//   const [queryClient] = useState(() => new QueryClient());
-//   const [trpcClient] = useState(() =>
-//     trpc.createClient({
-//       links: [
-//         httpBatchLink({
-//           url: absoluteUrl("/api/trpc"),
-//         }),
-//       ],
-//     })
-//   );
-
-//   return (
-//     <trpc.Provider client={trpcClient} queryClient={queryClient}>
-//       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-//     </trpc.Provider>
-//   );
-// };
-
-// export default Providers;
+export default Provider;
