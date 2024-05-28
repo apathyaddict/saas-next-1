@@ -7,17 +7,66 @@ import Dropzone from "react-dropzone";
 import { useDropzone } from "react-dropzone";
 import { Cloud, File, Loader2 } from "lucide-react";
 import { Progress } from "./ui/progress";
+import { useUploadThing } from "@/lib/uploadthing";
+import { useToast } from "./ui/use-toast";
 
 const UploadDropZone = () => {
   const [isUploading, setIsUploading] = useState<boolean>(true);
 
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+  const { toast } = useToast();
+
+  const { startUpload } = useUploadThing("pdfUploader");
+
+  // slowly increases the progress of the bar. This is fake, but assumes a certain progress
+  const startSimulatedProgress = () => {
+    setUploadProgress(0);
+
+    const interval = setInterval(() => {
+      setUploadProgress((prevProgress) => {
+        if (prevProgress >= 95) {
+          clearInterval(interval);
+          return prevProgress;
+        }
+        return prevProgress + 5;
+      });
+    }, 500);
+
+    return interval;
+  };
+
   return (
     <Dropzone
       multiple={false}
-      onDrop={(acceptedFiles) => {
-        console.log(acceptedFiles);
+      onDrop={async (acceptedFiles) => {
+        setIsUploading(true);
+
+        const progressInterval = startSimulatedProgress();
+
+        //upload to uploadthign
+        const res = await startUpload(acceptedFiles);
+        //toast error
+        if (!res) {
+          return toast({
+            title: "Something went wrong",
+            description: "try again later",
+            variant: "destructive",
+          });
+        }
+
+        const [fileResponse] = res;
+        const key = fileResponse?.key;
+        if (!key) {
+          return toast({
+            title: "Something went wrong",
+            description: "try again later",
+            variant: "destructive",
+          });
+        }
+
+        clearInterval(progressInterval);
+        setUploadProgress(100);
       }}>
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
@@ -48,16 +97,16 @@ const UploadDropZone = () => {
               {isUploading ? (
                 <div className="w-full mt-4 max-w-xs mx-auto">
                   <Progress
-                    color={uploadProgress === 100 ? "bg-green-500" : ""}
+                    // color={uploadProgress === 100 ? "bg-green-500" : ""}
                     value={uploadProgress}
                     className="h-1 w-full bg-zinc-200"
                   />
-                  {uploadProgress === 100 ? (
+                  {/* {uploadProgress === 100 ? (
                     <div className="flex gap-1 items-center justify-center text-sm text-zinc-700 text-center pt-2">
                       <Loader2 className="h-3 w-3 animate-spin" />
                       Redirecting...
                     </div>
-                  ) : null}
+                  ) : null} */}
                 </div>
               ) : null}
             </label>
