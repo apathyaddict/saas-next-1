@@ -5,7 +5,7 @@ import { UploadThingError } from "uploadthing/server";
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  pdfUploader: f({ image: { maxFileSize: "4MB" } })
+  pdfUploader: f({ image: { maxFileSize: "16MB" } })
     .middleware(async ({ req }) => {
       const { getUser } = getKindeServerSession();
       const user = getUser();
