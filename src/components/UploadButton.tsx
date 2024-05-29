@@ -18,15 +18,19 @@ const getSupportedFileTypes = (fileTypes: string[]): string[] => {
   return fileTypes.filter((type) => supportedMimeTypes.includes(type));
 };
 
-console.log("getSupportedFileTypes", getSupportedFileTypes);
-console.log("supportedMimeTypes", supportedMimeTypes);
+// console.log("getSupportedFileTypes", getSupportedFileTypes);
+// console.log("supportedMimeTypes", supportedMimeTypes);
 
 const UploadDropZone = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const { startUpload, permittedFileInfo } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
-      alert("uploaded successfully!");
+      toast({
+        title: "Upload successful",
+        description: "File uploaded successfully",
+        variant: "default",
+      });
     },
   });
 
@@ -39,8 +43,8 @@ const UploadDropZone = () => {
     : [];
   const supportedFileTypes = getSupportedFileTypes(fileTypes);
 
-  console.log("supportedFileTypes", supportedFileTypes);
-  console.log("fileTypes", fileTypes);
+  // console.log("supportedFileTypes", supportedFileTypes);
+  // console.log("fileTypes", fileTypes);
 
   const startSimulatedProgress = () => {
     setUploadProgress(0);
@@ -71,6 +75,8 @@ const UploadDropZone = () => {
 
           const [fileResponse] = res;
           const key = fileResponse?.key;
+          console.log(key, "key");
+
           if (!key) {
             throw new Error("No file key in response");
           }
@@ -78,12 +84,6 @@ const UploadDropZone = () => {
           clearInterval(progressInterval);
           setUploadProgress(100);
 
-          // Uncomment the toast and router.push lines if needed
-          // toast({
-          //   title: "Upload successful",
-          //   description: "File uploaded successfully",
-          //   variant: "success",
-          // });
           // router.push(`/dashboard/${key}`);
         } catch (error) {
           clearInterval(progressInterval);
@@ -134,6 +134,13 @@ const UploadDropZone = () => {
                   />
                 </div>
               ) : null}
+
+              <input
+                {...getInputProps()}
+                type="file"
+                id="dropzone-file"
+                className="hidden"
+              />
             </label>
           </div>
         </div>

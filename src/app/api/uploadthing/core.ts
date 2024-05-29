@@ -5,7 +5,8 @@ import { UploadThingError } from "uploadthing/server";
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  pdfUploader: f({ image: { maxFileSize: "16MB" }] })
+  //change here for file type
+  pdfUploader: f({ pdf: { maxFileSize: "16MB" } })
     .middleware(async ({ req }) => {
       const { getUser } = getKindeServerSession();
       const user = getUser();
@@ -16,9 +17,7 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for userId:", metadata.userId);
-
-      console.log("file url", file.url);
+      //send to databse
 
       return { uploadedBy: metadata.userId };
     }),
