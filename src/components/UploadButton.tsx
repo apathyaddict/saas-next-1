@@ -1,21 +1,46 @@
 "use client";
-
 import React, { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { Button } from "./ui/button";
 import Dropzone from "react-dropzone";
-import { Cloud, File, Loader2 } from "lucide-react";
+import { Cloud, File } from "lucide-react";
 import { Progress } from "./ui/progress";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
+import { generateClientDropzoneAccept } from "uploadthing/client";
+
+// Define supported MIME types
+const supportedMimeTypes = ["application/pdf"];
+
+// Function to filter supported MIME types
+const getSupportedFileTypes = (fileTypes: string[]): string[] => {
+  return fileTypes.filter((type) => supportedMimeTypes.includes(type));
+};
+
+console.log("getSupportedFileTypes", getSupportedFileTypes);
+console.log("supportedMimeTypes", supportedMimeTypes);
 
 const UploadDropZone = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const { startUpload } = useUploadThing("pdfUploader");
+  const { startUpload, permittedFileInfo } = useUploadThing("pdfUploader", {
+    onClientUploadComplete: () => {
+      alert("uploaded successfully!");
+    },
+  });
+
   const { toast } = useToast();
   const router = useRouter();
+
+  // Extract and filter fileTypes from permittedFileInfo
+  const fileTypes = permittedFileInfo?.config
+    ? Object.keys(permittedFileInfo?.config)
+    : [];
+  const supportedFileTypes = getSupportedFileTypes(fileTypes);
+
+  console.log("supportedFileTypes", supportedFileTypes);
+  console.log("fileTypes", fileTypes);
 
   const startSimulatedProgress = () => {
     setUploadProgress(0);
@@ -53,6 +78,7 @@ const UploadDropZone = () => {
           clearInterval(progressInterval);
           setUploadProgress(100);
 
+          // Uncomment the toast and router.push lines if needed
           // toast({
           //   title: "Upload successful",
           //   description: "File uploaded successfully",
@@ -69,7 +95,12 @@ const UploadDropZone = () => {
             variant: "destructive",
           });
         }
-      }}>
+      }}
+      accept={
+        supportedFileTypes.length > 0
+          ? generateClientDropzoneAccept(supportedFileTypes)
+          : undefined
+      }>
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
           {...getRootProps()}
@@ -83,19 +114,6 @@ const UploadDropZone = () => {
                 </p>
                 <p className="text-zinc-500 text-xs"> PDF (up to 4mb)</p>
               </div>
-
-              <UploadButton
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                  // Do something with the response
-                  console.log("Files: ", res);
-                  alert("Upload Completed");
-                }}
-                onUploadError={(error: Error) => {
-                  // Do something with the error.
-                  alert(`ERROR! ${error.message}`);
-                }}
-              />
 
               {acceptedFiles && acceptedFiles[0] ? (
                 <div className="max-w-xs bg-white flex items-center rounded-md overflow-hidden outline outline-[1px] outline-zinc-200 divide-x divide-zinc-200">
