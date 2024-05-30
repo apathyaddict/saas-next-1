@@ -16,21 +16,22 @@ interface FileInfo {
 
 interface PageProps {
   params: {
-    key: string;
+    fileid: string;
   };
 }
 
 const page = ({ params }: PageProps) => {
   // Retrieve info
-  const { key } = params;
+  const { fileid } = params;
 
   const [pdfInfo, setPdfInfo] = useState([]);
 
   useEffect(() => {
     const getOneFile = async () => {
       try {
-        const response = await fetch(`/api/pdfFiles/${key}`);
+        const response = await fetch(`/api/pdfFiles/${fileid}`);
         const data = await response.json();
+
         setPdfInfo(data);
       } catch (error) {
         console.error("Error fetching specific file:", error);
@@ -39,18 +40,11 @@ const page = ({ params }: PageProps) => {
     getOneFile();
   }, []);
 
-  // Empty dependency array means this effect will run only once when the component mounts
-
-  // const fileIdNumber = parseInt(fileid);
-
-  // // Find the object in the data array with the matching id
-  // const fileInfo = data.find((item: FileInfo) => item.id === fileIdNumber);
+  const url = pdfInfo.url;
 
   if (!pdfInfo) {
     return <div>File not found</div>;
   }
-
-  console.log(pdfInfo);
 
   return (
     <>
@@ -60,7 +54,7 @@ const page = ({ params }: PageProps) => {
           <div className="flex-1 xl:flex">
             <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
               {/* Main area */}
-              <PdfRenderer />
+              <PdfRenderer url={url} />
             </div>
           </div>
 
