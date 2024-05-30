@@ -1,16 +1,19 @@
+"use client";
 import ChatWrapper from "@/components/ChatWrapper";
 import PdfRenderer from "@/components/PdfRenderer";
 import data from "@/data/files.json";
+import { useEffect } from "react";
 
 interface FileInfo {
   id: number;
   name: string;
   user: string;
-  upload_status: string;
+  // upload_status: string;
   url: string;
   key: string;
-  created_at: string;
-  updated_property: string;
+  createdAt: string;
+  upadatedAt: string;
+  // updated_property: string;
 }
 
 interface PageProps {
@@ -23,12 +26,24 @@ const page = ({ params }: PageProps) => {
   // Retrieve info
   const { fileid } = params;
 
-  const fileIdNumber = parseInt(fileid);
+  useEffect(() => {
+    const getOneFile = async () => {
+      try {
+        const response = await fetch(`/api/pdfFiles/${fileid}`);
+        const data = await response.json();
+      } catch (error) {
+        console.error("Error fetching specific file:", error);
+      }
+    };
+    getOneFile();
+  }, []); // Empty dependency array means this effect will run only once when the component mounts
 
-  // Find the object in the data array with the matching id
-  const fileInfo = data.find((item: FileInfo) => item.id === fileIdNumber);
+  // const fileIdNumber = parseInt(fileid);
 
-  if (!fileInfo) {
+  // // Find the object in the data array with the matching id
+  // const fileInfo = data.find((item: FileInfo) => item.id === fileIdNumber);
+
+  if (!data) {
     return <div>File not found</div>;
   }
 
