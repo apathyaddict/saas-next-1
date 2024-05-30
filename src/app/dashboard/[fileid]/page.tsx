@@ -1,8 +1,7 @@
 "use client";
 import ChatWrapper from "@/components/ChatWrapper";
 import PdfRenderer from "@/components/PdfRenderer";
-// import data from "@/data/files.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface FileInfo {
   id: number;
@@ -25,11 +24,14 @@ const page = ({ params }: PageProps) => {
   // Retrieve info
   const { key } = params;
 
+  const [pdfInfo, setPdfInfo] = useState([]);
+
   useEffect(() => {
     const getOneFile = async () => {
       try {
         const response = await fetch(`/api/pdfFiles/${key}`);
         const data = await response.json();
+        setPdfInfo(data);
       } catch (error) {
         console.error("Error fetching specific file:", error);
       }
@@ -44,9 +46,11 @@ const page = ({ params }: PageProps) => {
   // // Find the object in the data array with the matching id
   // const fileInfo = data.find((item: FileInfo) => item.id === fileIdNumber);
 
-  if (!data) {
+  if (!pdfInfo) {
     return <div>File not found</div>;
   }
+
+  console.log(pdfInfo);
 
   return (
     <>

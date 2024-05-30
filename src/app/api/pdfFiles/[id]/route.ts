@@ -27,7 +27,7 @@ export const DELETE = async (
     await connectToDB();
 
     // Find the prompt by ID and remove it
-    await PDF.findOneAndDelete(params.id);
+    await PDF.findOneAndDelete({ string: params.id });
 
     return new Response("pdf deleted successfully", { status: 200 });
   } catch (error) {
