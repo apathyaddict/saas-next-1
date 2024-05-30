@@ -37,6 +37,20 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
     }
   }, []);
 
+  const deleteFile = async (fileId: string) => {
+    try {
+      await fetch(`/api/pdfFiles/${fileId}`, {
+        method: "DELETE",
+      });
+
+      const filteredPdfs = files.filter((item) => item._id !== fileId);
+
+      setFiles(filteredPdfs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <main className="mx-auto max-w-7xl md:p-10">
       <div
@@ -85,7 +99,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                     mocked
                   </div>
                   <Button
-                    // onClick={() => deleteFile({ id: file.id })}
+                    onClick={() => deleteFile(file._id)}
                     size="sm"
                     className="w-full"
                     variant="destructive">

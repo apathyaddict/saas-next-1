@@ -3,11 +3,19 @@ import { connectToDB } from "../../../../utils/database";
 
 export const POST = async (request) => {
   //add here what to save to file
-  const { name, url, key, createdAt, updatedAt } = await request.json();
+  const { name, url, key, createdAt, updatedAt, uploadStatus } =
+    await request.json();
 
   try {
     await connectToDB();
-    const newPdf = new PDF({ creator: name, url, key, createdAt, updatedAt });
+    const newPdf = new PDF({
+      name,
+      url,
+      key,
+      createdAt,
+      updatedAt,
+      uploadStatus,
+    });
 
     await newPdf.save();
 

@@ -22,7 +22,6 @@ export const ourFileRouter = {
           key: file.key,
           filename: file.name,
           url: file.url,
-
           createdAt: new Date(),
           updatedAt: new Date(),
           userId: metadata.userId,

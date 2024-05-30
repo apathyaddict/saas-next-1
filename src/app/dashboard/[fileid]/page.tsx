@@ -1,24 +1,23 @@
 "use client";
 import ChatWrapper from "@/components/ChatWrapper";
 import PdfRenderer from "@/components/PdfRenderer";
-import data from "@/data/files.json";
+// import data from "@/data/files.json";
 import { useEffect } from "react";
 
 interface FileInfo {
   id: number;
   name: string;
-  user: string;
-  // upload_status: string;
+  userId: string;
+  uploadStatus: string;
   url: string;
   key: string;
   createdAt: string;
   upadatedAt: string;
-  // updated_property: string;
 }
 
 interface PageProps {
   params: {
-    fileid: string;
+    key: string;
   };
 }
 
@@ -36,7 +35,9 @@ const page = ({ params }: PageProps) => {
       }
     };
     getOneFile();
-  }, []); // Empty dependency array means this effect will run only once when the component mounts
+  }, []);
+
+  // Empty dependency array means this effect will run only once when the component mounts
 
   // const fileIdNumber = parseInt(fileid);
 

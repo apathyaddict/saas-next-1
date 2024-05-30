@@ -10,11 +10,27 @@ export const GET = async (request: Request, { params }: { params: Params }) => {
     await connectToDB();
 
     const pdf = await PDF.findById(params.id).populate("createdAt");
-    console.log("pdf", pdf);
+
     if (!pdf) return new Response("File Not Found", { status: 404 });
 
     return new Response(JSON.stringify(pdf), { status: 200 });
   } catch (error) {
     return new Response("Internal Server Error", { status: 500 });
+  }
+};
+
+export const DELETE = async (
+  request: Request,
+  { params }: { params: Params }
+) => {
+  try {
+    await connectToDB();
+
+    // Find the prompt by ID and remove it
+    await PDF.findOneAndDelete(params.id);
+
+    return new Response("pdf deleted successfully", { status: 200 });
+  } catch (error) {
+    return new Response("Error deleting pdf", { status: 500 });
   }
 };
