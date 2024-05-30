@@ -1,12 +1,9 @@
 import { Schema, model, models } from "mongoose";
 
 const PDFSchema = new Schema({
-  // creator: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Pdf",
-  // },
-  name: {
+  filename: {
     type: String,
+    required: [true, "filename is required."],
   },
   url: {
     type: String,
@@ -21,6 +18,10 @@ const PDFSchema = new Schema({
   },
   updatedAt: {
     type: Date,
+  },
+  userId: {
+    type: String,
+    required: [true, "userId is required"],
   },
 });
 

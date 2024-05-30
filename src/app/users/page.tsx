@@ -16,7 +16,7 @@ const page = () => {
     fetchPosts();
   }, []);
 
-  return <div>test: </div>;
+  return <div></div>;
 };
 
 export default page;

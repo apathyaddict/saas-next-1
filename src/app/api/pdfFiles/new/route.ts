@@ -1,13 +1,13 @@
 import PDF from "../../../../models/pdf";
-import connectDB from "../../../../utils/database";
+import { connectToDB } from "../../../../utils/database";
 
 export const POST = async (request) => {
   //add here what to save to file
-  const {} = await request.json();
+  const { name, url, key, createdAt, updatedAt } = await request.json();
 
   try {
-    await connectDB();
-    const newPdf = new PDF({ creator: userId, prompt, tag });
+    await connectToDB();
+    const newPdf = new PDF({ creator: name, url, key, createdAt, updatedAt });
 
     await newPdf.save();
 

@@ -10,7 +10,7 @@ const PageDash = async () => {
 
   if (!user || !user.id) redirect("/");
 
-  return <Dashboard />;
+  return <Dashboard user={user} />;
 };
 
 export default PageDash;

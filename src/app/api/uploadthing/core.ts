@@ -1,17 +1,15 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
 import { connectToDB } from "@/utils/database";
+import PDF from "@/models/pdf";
 
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  // Change here for file type
-  pdfUploader: f({ pdf: { maxFileSize: "16MB" } })
+  pdfUploader: f({ pdf: { maxFileSize: "4MB" } })
     .middleware(async ({ req }) => {
       const { getUser } = getKindeServerSession();
       const user = await getUser();
-
       if (!user || !user.id) throw new Error("Unauthorized");
 
       return { userId: user.id };
@@ -19,15 +17,24 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       await connectToDB();
 
-      // const createdFile = await db.create("/api/pdfFiles/new", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     name: file.name,
-      //     userId: metadata.userId, // Use metadata.userId here
-      //     key: file.key,
-      //     url: file.url,
-      //   }),
-      // });
+      try {
+        const newPdf = new PDF({
+          filename: file.name,
+          url: file.url,
+          key: file.key,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          userId: metadata.userId,
+        });
+
+        console.log("Document to be saved:", newPdf);
+
+        await newPdf.save();
+
+        console.log("File saved successfully:", newPdf);
+      } catch (error) {
+        console.error("Failed to save file:", error);
+      }
 
       return { uploadedBy: metadata.userId };
     }),

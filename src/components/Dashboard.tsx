@@ -1,20 +1,42 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import UploadButton from "./UploadButton";
-import data from "@/data/files.json";
+// import data from "@/data/files.json";
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const Dashboard = () => {
-  const mockData = data;
+interface User {
+  id: string;
+  email: string | null;
+}
 
-  // const getFiles = async () => {
-  //   const response = await fetch(`/api/File/${1}`);
-  //   const data = await response.json();
-  //   console.log(data, "data");
-  // };
-  // getFiles();
+interface DashboardProps {
+  user: User;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ user }) => {
+  const [files, setFiles] = useState<any[]>([]);
+
+  useEffect(() => {
+    try {
+      const getFiles = async () => {
+        const response = await fetch(`/api/pdfFiles`);
+        const data = await response.json();
+
+        const userFiles = data.filter((file) => {
+          return file.userId === user.id;
+        });
+
+        setFiles(userFiles);
+      };
+      getFiles();
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  }, []);
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
@@ -27,17 +49,17 @@ const Dashboard = () => {
       </div>
 
       {/* display user files */}
-      {mockData && mockData.length !== 0 ? (
+      {files && files.length !== 0 ? (
         <ul className="mt-8 grid grid-cols-1 gap-6 divide-y divide-zinc-200 md:grid-cols-2 lg:grid-cols-3">
-          {mockData
+          {files
             .sort(
               (a, b) =>
-                new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime()
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
             )
             .map((file) => (
               <li
-                key={file.id}
+                key={file._id}
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg">
                 <Link
                   href={`/dashboard/${file.id}`}
@@ -56,7 +78,7 @@ const Dashboard = () => {
                 <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-2 gap-6 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <Plus className="h-4 w-4" />
-                    {format(new Date(file.created_at), "MMM yyyy")}
+                    {format(new Date(file.createdAt), "MMM yyyy")}
                   </div>
 
                   <div className="flex items-center gap-2">
