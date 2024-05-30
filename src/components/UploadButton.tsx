@@ -77,7 +77,7 @@ const UploadDropZone = () => {
           clearInterval(progressInterval);
           setUploadProgress(100);
 
-          // router.push(`/dashboard/${key}`);
+          router.push(`/dashboard/${key}`);
         } catch (error) {
           clearInterval(progressInterval);
           setUploadProgress(0);

@@ -23,6 +23,11 @@ const PDFSchema = new Schema({
     type: String,
     required: [true, "userId is required"],
   },
+  uploadStatus: {
+    type: String,
+    enum: ["PENDING", "PROCESSING", "COMPLETE"],
+    default: "PENDING",
+  },
 });
 
 const PDF = models.PDF || model("PDF", PDFSchema);

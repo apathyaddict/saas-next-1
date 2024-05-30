@@ -17,14 +17,18 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       await connectToDB();
 
+      console.log(file);
+
       try {
         const newPdf = new PDF({
+          key: file.key,
           filename: file.name,
           url: file.url,
-          key: file.key,
+
           createdAt: new Date(),
           updatedAt: new Date(),
           userId: metadata.userId,
+          uploadStatus: "PROCESSING",
         });
 
         console.log("Document to be saved:", newPdf);

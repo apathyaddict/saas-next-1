@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import UploadButton from "./UploadButton";
-// import data from "@/data/files.json";
+
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface User {
   id: string;
@@ -69,7 +68,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                     <div className="flex-1 truncate">
                       <div className="flex items-center space-x-3">
                         <h3 className="truncate text-lg font-medium text-zinc-900">
-                          {file.name}
+                          {file.filename}
                         </h3>
                       </div>
                     </div>
