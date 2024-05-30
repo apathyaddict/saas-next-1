@@ -24,12 +24,12 @@ interface PageProps {
 
 const page = ({ params }: PageProps) => {
   // Retrieve info
-  const { fileid } = params;
+  const { key } = params;
 
   useEffect(() => {
     const getOneFile = async () => {
       try {
-        const response = await fetch(`/api/pdfFiles/${fileid}`);
+        const response = await fetch(`/api/pdfFiles/${key}`);
         const data = await response.json();
       } catch (error) {
         console.error("Error fetching specific file:", error);
