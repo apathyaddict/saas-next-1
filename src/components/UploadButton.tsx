@@ -18,9 +18,6 @@ const getSupportedFileTypes = (fileTypes: string[]): string[] => {
   return fileTypes.filter((type) => supportedMimeTypes.includes(type));
 };
 
-// console.log("getSupportedFileTypes", getSupportedFileTypes);
-// console.log("supportedMimeTypes", supportedMimeTypes);
-
 const UploadDropZone = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
@@ -75,7 +72,6 @@ const UploadDropZone = () => {
 
           const [fileResponse] = res;
           const key = fileResponse?.key;
-          console.log(key, "key");
 
           if (!key) {
             throw new Error("No file key in response");
@@ -83,6 +79,15 @@ const UploadDropZone = () => {
 
           clearInterval(progressInterval);
           setUploadProgress(100);
+
+          const response = await fetch("/api/pdfFiles/new", {
+            method: "POST",
+            body: JSON.stringify({
+              name: res,
+              userId: "1",
+              key: key,
+            }),
+          });
 
           // router.push(`/dashboard/${key}`);
         } catch (error) {

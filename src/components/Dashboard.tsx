@@ -9,6 +9,13 @@ import { Button } from "./ui/button";
 const Dashboard = () => {
   const mockData = data;
 
+  // const getFiles = async () => {
+  //   const response = await fetch(`/api/File/${1}`);
+  //   const data = await response.json();
+  //   console.log(data, "data");
+  // };
+  // getFiles();
+
   return (
     <main className="mx-auto max-w-7xl md:p-10">
       <div
