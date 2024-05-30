@@ -40,9 +40,6 @@ const UploadDropZone = () => {
     : [];
   const supportedFileTypes = getSupportedFileTypes(fileTypes);
 
-  // console.log("supportedFileTypes", supportedFileTypes);
-  // console.log("fileTypes", fileTypes);
-
   const startSimulatedProgress = () => {
     setUploadProgress(0);
     const interval = setInterval(() => {
@@ -79,15 +76,6 @@ const UploadDropZone = () => {
 
           clearInterval(progressInterval);
           setUploadProgress(100);
-
-          const response = await fetch("/api/pdfFiles/new", {
-            method: "POST",
-            body: JSON.stringify({
-              name: res,
-              userId: "1",
-              key: key,
-            }),
-          });
 
           // router.push(`/dashboard/${key}`);
         } catch (error) {

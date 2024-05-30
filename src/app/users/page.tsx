@@ -8,15 +8,15 @@ const page = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("api/users");
-      console.log("response", response);
+
       const data = await response.json();
       setUsers(data);
-      console.log("users", users);
+      console.log("users", data);
     };
     fetchPosts();
   }, []);
 
-  return <div>test: {users}</div>;
+  return <div>test: </div>;
 };
 
 export default page;
