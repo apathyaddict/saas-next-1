@@ -23,6 +23,7 @@ import {
 } from "./ui/dropdown-menu";
 import SimpleBar from "simplebar-react";
 import PdfFullScreen from "./PdfFullScreen";
+import { cn } from "@/lib/utils";
 
 // For react-pdf to work
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -42,6 +43,10 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [scale, setscale] = useState<number>(1);
   const [rotation, setRotation] = useState<number>(0);
+  const [renderedScale, setRenderedScale] = useState<number | null>(null);
+
+  //to avoid lag when switching scales
+  const isLoading = renderedScale !== scale;
 
   // Initialize react-hook-form
   const { register, handleSubmit, setValue } = useForm<FormData>();
@@ -161,11 +166,29 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               className="max-h-full"
               file={url}>
+              {isLoading && renderedScale ? (
+                <Page
+                  scale={scale}
+                  width={width || 1}
+                  pageNumber={currentPage}
+                  rotate={rotation}
+                  key={"@" + renderedScale}
+                />
+              ) : null}
+              {/* extra tweek for smooth usage but works without it */}
               <Page
+                className={cn(isLoading ? "hidden" : "")}
                 scale={scale}
                 width={width || 1}
                 pageNumber={currentPage}
                 rotate={rotation}
+                key={"@" + scale}
+                loading={
+                  <div className="flex justify-center ">
+                    <Loader2 className="my-24 h-6 w-6 animate-spin" />
+                  </div>
+                }
+                onRenderSuccess={() => setRenderedScale(scale)}
               />
             </Document>
           </div>
