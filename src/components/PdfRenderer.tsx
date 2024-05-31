@@ -10,11 +10,15 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 
-//for reatc-pdf to work
+// For react-pdf to work
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface PdfRendererProps {
   url: string;
+}
+
+interface FormData {
+  page: string;
 }
 
 const PdfRenderer = ({ url }: PdfRendererProps) => {
@@ -23,8 +27,21 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const [numPages, setNumPages] = useState<number>();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  //npm install react-hook-form
-  // const {  } = useForm();
+  // Initialize react-hook-form
+  const { register, handleSubmit, setValue } = useForm<FormData>();
+
+  const handlePageSubmit = ({ page }: FormData) => {
+    const pageNumber = Number(page);
+    if (pageNumber > 0 && pageNumber <= numPages!) {
+      setCurrentPage(pageNumber);
+    } else {
+      toast({
+        title: "Invalid page number",
+        description: `Please enter a number between 1 and ${numPages}`,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
@@ -33,36 +50,45 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           <Button
             disabled={currentPage <= 1}
             variant="ghost"
-            aria-label="previouspage"
-            onClick={() => {
-              setCurrentPage((prev) => (prev - 1 > 1 ? prev - 1 : 1));
-            }}>
+            aria-label="previous page"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
             <ChevronDownIcon className="h-4 w-4" />
           </Button>
 
-          <div className="flex items-center gap-1.5">
-            <Input className="w-12 h-8" value={currentPage} />
+          <form
+            onSubmit={handleSubmit(handlePageSubmit)}
+            className="flex items-center gap-1.5">
+            <Input
+              {...register("page")}
+              defaultValue={currentPage}
+              onBlur={(e) => setValue("page", e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(handlePageSubmit)();
+                }
+              }}
+              className="w-12 h-8"
+            />
             <p className="text-zinc-700 text-sm space-x-1">
               <span>/</span>
               <span>{numPages ?? "..."}</span>
             </p>
-          </div>
+          </form>
+
           <Button
             disabled={currentPage === numPages || numPages === undefined}
-            onClick={() => {
-              setCurrentPage((prev) =>
-                prev + 1 > numPages! ? numPages! : prev + 1
-              );
-            }}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, numPages!))
+            }
             variant="ghost"
-            aria-label="previouspage">
+            aria-label="next page">
             <ChevronUpIcon className="h-4 w-4" />
           </Button>
         </div>
       </div>
 
       <div className="flex-1 w-full max-h-screen">
-        {/* pdf fit to page */}
+        {/* PDF fit to page */}
         <div ref={ref}>
           <Document
             loading={
@@ -72,15 +98,15 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             }
             onLoadError={() => {
               toast({
-                title: "error loading PDF",
-                description: "try again later",
+                title: "Error loading PDF",
+                description: "Try again later",
                 variant: "destructive",
               });
             }}
             onLoadSuccess={({ numPages }) => setNumPages(numPages)}
             className="max-h-full"
             file={url}>
-            <Page width={width ? width : 1} pageNumber={currentPage} />
+            <Page width={width || 1} pageNumber={currentPage} />
           </Document>
         </div>
       </div>
