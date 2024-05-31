@@ -8,6 +8,7 @@ import { useToast } from "./ui/use-toast";
 import { useResizeDetector } from "react-resize-detector";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useForm } from "react-hook-form";
 
 //for reatc-pdf to work
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -21,6 +22,9 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const { width, ref } = useResizeDetector();
   const [numPages, setNumPages] = useState<number>();
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  //npm install react-hook-form
+  // const {  } = useForm();
 
   return (
     <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
@@ -37,7 +41,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           </Button>
 
           <div className="flex items-center gap-1.5">
-            <Input className="w-12 h-8" />
+            <Input className="w-12 h-8" value={currentPage} />
             <p className="text-zinc-700 text-sm space-x-1">
               <span>/</span>
               <span>{numPages ?? "..."}</span>
