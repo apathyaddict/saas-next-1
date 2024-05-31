@@ -1,5 +1,11 @@
 "use client";
-import { ChevronDownIcon, ChevronUpIcon, Loader2, Search } from "lucide-react";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  Loader2,
+  RotateCw,
+  Search,
+} from "lucide-react";
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -16,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import SimpleBar from "simplebar-react";
+import PdfFullScreen from "./PdfFullScreen";
 
 // For react-pdf to work
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -34,6 +41,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const [numPages, setNumPages] = useState<number>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [scale, setscale] = useState<number>(1);
+  const [rotation, setRotation] = useState<number>(0);
 
   // Initialize react-hook-form
   const { register, handleSubmit, setValue } = useForm<FormData>();
@@ -118,6 +126,17 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <Button
+            aria-label="rotate 90degrees"
+            variant="ghost"
+            onClick={() => {
+              setRotation((prev) => prev + 90);
+            }}>
+            <RotateCw className="h-4 w-4" />
+          </Button>
+
+          <PdfFullScreen fileUrl={url} />
         </div>
       </div>
 
@@ -142,7 +161,12 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               className="max-h-full"
               file={url}>
-              <Page scale={scale} width={width || 1} pageNumber={currentPage} />
+              <Page
+                scale={scale}
+                width={width || 1}
+                pageNumber={currentPage}
+                rotate={rotation}
+              />
             </Document>
           </div>
         </SimpleBar>

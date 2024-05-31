@@ -96,7 +96,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    mocked
+                    TBD
                   </div>
                   <Button
                     onClick={() => deleteFile(file._id)}
