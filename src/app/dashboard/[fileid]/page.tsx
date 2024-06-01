@@ -1,5 +1,5 @@
 "use client";
-import ChatWrapper from "@/components/ChatWrapper";
+import ChatWrapper from "@/components/chat/ChatWrapper";
 import PdfRenderer from "@/components/PdfRenderer";
 import { useEffect, useState } from "react";
 
@@ -59,7 +59,7 @@ const page = ({ params }: PageProps) => {
           </div>
 
           <div className="shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
-            <ChatWrapper />
+            <ChatWrapper fileid={fileid} pdfInfo={pdfInfo} />
           </div>
         </div>
       </div>
