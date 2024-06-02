@@ -41,9 +41,6 @@ export const PATCH = async (
 ) => {
   const { fileId, message, userId } = await request.json();
 
-  console.log(fileId);
-  console.log(message);
-
   try {
     await connectToDB();
 
