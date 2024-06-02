@@ -1,29 +1,30 @@
+import React from "react";
 import Messages from "./Messages";
 import ChatInput from "./ChatInput";
 
 interface ChatWrapperProps {
   pdfInfo: {
-    id: number;
+    _id: string;
     name: string;
     userId: string;
     uploadStatus: string;
     url: string;
     key: string;
     createdAt: string;
-    upadatedAt: string;
+    updatedAt: string;
   };
 }
 
 const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
-  console.log(pdfInfo);
+  const id = pdfInfo._id;
+  const userId = pdfInfo.userId;
 
   return (
-    <div className="relative min-h-full  bg-zinc-50 divide-y divide-zinc-200 flex-col justify-between gap-2">
+    <div className="relative min-h-full bg-zinc-50 divide-y divide-zinc-200 flex-col justify-between gap-2">
       <div className="flex-1 justify-between flex flex-col mb-28">
-        <Messages />
+        <Messages fileId={id} />
       </div>
-
-      <ChatInput />
+      <ChatInput fileId={id} userId={userId} />
     </div>
   );
 };

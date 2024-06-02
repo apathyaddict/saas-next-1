@@ -1,9 +1,10 @@
+import { NextRequest } from "next/server";
 import PDF from "../../../../models/pdf";
 import { connectToDB } from "../../../../utils/database";
 
-export const POST = async (request) => {
+export const POST = async (request: NextRequest) => {
   //add here what to save to file
-  const { name, url, key, createdAt, updatedAt, uploadStatus } =
+  const { name, url, key, createdAt, updatedAt, uploadStatus, messages } =
     await request.json();
 
   try {
@@ -15,6 +16,7 @@ export const POST = async (request) => {
       createdAt,
       updatedAt,
       uploadStatus,
+      messages,
     });
 
     await newPdf.save();
