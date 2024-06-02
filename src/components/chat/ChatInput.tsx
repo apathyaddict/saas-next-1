@@ -65,7 +65,6 @@ const ChatInput = ({ fileId, userId }: ChatInputProps) => {
                 disabled={isLoading}
                 className="absolute bottom-1.5 right-[8px]"
                 aria-label="send message"
-                type="submit"
                 onClick={() => {
                   addMessage();
                   textAreaRef.current?.focus();
