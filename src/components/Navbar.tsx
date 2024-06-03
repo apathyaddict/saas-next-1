@@ -20,7 +20,9 @@ const Navbar = async () => {
       <MaxWithWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
           <Link href="/" className="flex z-40 font-semibold">
-            <span>inferno.</span>
+            <span>
+              inferno<span className="text-primary">.</span>
+            </span>
           </Link>
 
           <MobileNavBar isAuth={!!user} />

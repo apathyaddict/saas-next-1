@@ -3,7 +3,6 @@ import { buttonVariants } from "@/components/ui/button";
 //npm lucide-react
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-//npx shadcn-ui@latest init
 
 import Link from "next/link";
 
@@ -11,13 +10,13 @@ export default function Home() {
   return (
     <>
       <MaxWithWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
-        <div className="mx-auto mb-4 flex max-w-fit items-center justify-centers space-x-2 overflow-hidden rounded-full border boder-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
+        <div className="mx-auto mb-4 flex max-w-fit items-center cursor-default justify-centers space-x-2 overflow-hidden rounded-full border boder-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
           <p className="text-sm font-semibold text-gray-700">
-            The voyage of life
+            follow the circles
           </p>
         </div>
         <h1 className="max-w-4xl text-5xl font-bold lg:text-7xl">
-          Abandon <span className="text-blue-600">all hope</span> ye who enter
+          Abandon <span className="text-primary">all hope</span> ye who enter
           here.
         </h1>
         <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
@@ -26,8 +25,9 @@ export default function Home() {
         </p>
         <Link
           className={buttonVariants({ size: "lg", className: "mt-5" })}
-          href="/dashboard"
-          target="blank">
+          href="/pricing"
+          target="blank"
+        >
           Enter Now <ArrowRight className="ml-2 h-5 w-5" />
         </Link>
       </MaxWithWrapper>
@@ -38,13 +38,14 @@ export default function Home() {
           <div
             //to let the users  know this is purely decorative
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          >
             <div
               style={{
                 clipPath:
                   "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
               }}
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ed2f4c] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
             />
           </div>
           <div>
@@ -66,7 +67,8 @@ export default function Home() {
 
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          >
             <div
               style={{
                 clipPath:
@@ -93,18 +95,16 @@ export default function Home() {
         </div>
 
         {/* steps */}
-        <ol className="my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
+        <ol className="my-6 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
           <li className="md:flex-1">
-            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
-              <span className="text-sm font-medium text-blue-600">Step 1</span>
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300  pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-primary">Step 1</span>
               <span className="text-xl font-semibold">
                 Sign up for an account
               </span>
               <span className="mt-2 text-zinc-700">
                 Featuring a free account or our{" "}
-                <Link
-                  href="/pricing"
-                  className="text-blue-700 underline underline-offset-2">
+                <Link href="/pricing" className="text-primary ">
                   pro plan
                 </Link>
                 .
@@ -113,7 +113,7 @@ export default function Home() {
           </li>
           <li className="md:flex-1">
             <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
-              <span className="text-sm font-medium text-blue-600">Step 2</span>
+              <span className="text-sm font-medium text-primary">Step 2</span>
               <span className="text-xl font-semibold">
                 Upload your pdf file
               </span>
@@ -124,7 +124,7 @@ export default function Home() {
           </li>
           <li className="md:flex-1">
             <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
-              <span className="text-sm font-medium text-blue-600">Step 3</span>
+              <span className="text-sm font-medium text-primary">Step 3</span>
               <span className="text-xl font-semibold">
                 Start Asking Questions
               </span>

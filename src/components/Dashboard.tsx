@@ -2,7 +2,14 @@
 import React, { useEffect, useState } from "react";
 import UploadButton from "./UploadButton";
 
-import { File, Ghost, MessageSquare, Plus, Trash } from "lucide-react";
+import {
+  FileText,
+  Ghost,
+  Loader2,
+  MessageSquare,
+  Plus,
+  Trash,
+} from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
@@ -52,10 +59,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   };
 
   return (
-    <main className="mx-auto max-w-7xl md:p-10">
+    <main className="mx-auto max-w-7xl md:p-10 px-2 ">
       <div
         className="mt-8 flex flex-col justify-between 
-      gap-4 items-start border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0 ">
+      gap-4 items-start border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0 "
+      >
         <h1 className="mb-3 font-bold text-gray-900  text-5xl">My Files</h1>
 
         <UploadButton />
@@ -68,18 +76,20 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
             .sort(
               (a, b) =>
                 new Date(b.createdAt).getTime() -
-                new Date(a.createdAt).getTime()
+                new Date(a.createdAt).getTime(),
             )
             .map((file) => (
               <li
                 key={file._id}
-                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg">
+                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg"
+              >
                 <Link
                   href={`/dashboard/${file._id}`}
-                  className="flex flex-col gap-2">
+                  className="flex flex-col gap-2"
+                >
                   <div className="pt-6 px-6 flex w-full items-center justify-between space-x-6">
-                    <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-r from-cyan-500 to-blue-700">
-                      <File className="text-white h-4 w-4 items-center m-3 " />
+                    <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-r from-orange-300 to-primary">
+                      <FileText className="text-white h-4 w-4 items-center m-3 " />
                     </div>
                     <div className="flex-1 truncate">
                       <div className="flex items-center space-x-3">
@@ -98,18 +108,19 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4" />
-                    TBD
+                    {file.messages.length}
                   </div>
                   <Button
                     onClick={() => deleteFile(file._id)}
                     size="sm"
                     className="w-full"
-                    variant="destructive">
-                    {/* {currentlyDeletingFile === file.id ? (
+                    variant="destructive"
+                  >
+                    {deleteFile === file.id ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : ( */}
-                    <Trash className="h-4 w-4" />
-                    {/* )} */}
+                    ) : (
+                      <Trash className="h-4 w-4" />
+                    )}
                   </Button>
                 </div>
               </li>

@@ -64,7 +64,7 @@ const UserAccountNav = ({ email, imageUrl, name }: UserAccountNavProps) => {
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link href={"/pricing"}>
             Upgrade
-            <Gem className="text-blue-500 ml-1 h-4 w-4" />
+            <Gem className="text-orange-500 ml-1 h-4 w-4" />
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="cursor-pointer">

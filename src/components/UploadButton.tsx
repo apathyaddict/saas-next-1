@@ -93,11 +93,13 @@ const UploadDropZone = () => {
         supportedFileTypes.length > 0
           ? generateClientDropzoneAccept(supportedFileTypes)
           : undefined
-      }>
+      }
+    >
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
           {...getRootProps()}
-          className="border border-dashed h-64 m-4 border-gray-300 rounded-lg">
+          className="border border-dashed h-64 m-4 border-gray-300 rounded-lg"
+        >
           <div className="flex items-center justify-center h-full w-full">
             <label className="flex flex-col items-center w-full h-full justify-center rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -111,7 +113,7 @@ const UploadDropZone = () => {
               {acceptedFiles && acceptedFiles[0] ? (
                 <div className="max-w-xs bg-white flex items-center rounded-md overflow-hidden outline outline-[1px] outline-zinc-200 divide-x divide-zinc-200">
                   <div className="px-3 py-2 h-full grid place-items-center">
-                    <File className="h-4 w-4 text-blue-500" />
+                    <File className="h-4 w-4 text-primary" />
                   </div>
                   <div className="px-3 py-2 h-full text-sm truncate">
                     {acceptedFiles[0].name}
