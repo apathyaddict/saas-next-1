@@ -25,7 +25,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         const response = await fetch(`/api/pdfFiles`);
         const data = await response.json();
 
-        const userFiles = data.filter((file) => {
+        const userFiles = data.filter((file: { userId: string }) => {
           return file.userId === user.id;
         });
 

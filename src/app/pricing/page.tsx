@@ -16,9 +16,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 const Page = () => {
-  const { getUser } = getKindeServerSession();
-  const user = getUser();
-
   const pricingItems = [
     {
       plan: "Free",

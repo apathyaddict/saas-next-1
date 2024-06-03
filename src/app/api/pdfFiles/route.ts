@@ -1,7 +1,7 @@
 import PDF from "../../../models/pdf";
 import { connectToDB } from "../../../utils/database";
 
-export const GET = async (request) => {
+export const GET = async (request: Request) => {
   try {
     await connectToDB();
 
