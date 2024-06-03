@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface ChatInputProps {
   fileId: string;
@@ -68,7 +67,8 @@ const ChatInput = ({ fileId, userId }: ChatInputProps) => {
                 onClick={() => {
                   addMessage();
                   textAreaRef.current?.focus();
-                }}>
+                }}
+              >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
