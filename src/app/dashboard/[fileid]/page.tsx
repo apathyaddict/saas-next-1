@@ -3,17 +3,6 @@ import ChatWrapper from "@/components/chat/ChatWrapper";
 import PdfRenderer from "@/components/PdfRenderer";
 import { useEffect, useState } from "react";
 
-interface FileInfo {
-  id: number;
-  name: string;
-  userId: string;
-  uploadStatus: string;
-  url: string;
-  key: string;
-  createdAt: string;
-  upadatedAt: string;
-}
-
 interface PageProps {
   params: {
     fileid: string;
@@ -21,10 +10,20 @@ interface PageProps {
 }
 
 const page = ({ params }: PageProps) => {
-  // Retrieve info
   const { fileid } = params;
 
-  const [pdfInfo, setPdfInfo] = useState([]);
+  const [pdfInfo, setPdfInfo] = useState<
+    {
+      _id: string;
+      name: string;
+      userId: string;
+      uploadStatus: string;
+      url: string;
+      key: string;
+      createdAt: string;
+      updatedAt: string;
+    }[]
+  >([]);
 
   useEffect(() => {
     const getOneFile = async () => {
@@ -40,7 +39,7 @@ const page = ({ params }: PageProps) => {
     getOneFile();
   }, []);
 
-  const url = pdfInfo.url;
+  const url = pdfInfo.length > 0 ? pdfInfo[0].url : "";
 
   if (!pdfInfo) {
     return <div>File not found</div>;
@@ -59,6 +58,7 @@ const page = ({ params }: PageProps) => {
           </div>
 
           <div className="shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
+            {/* consider if bug pdfInfo={pdfInfo[0]} fileid={fileid} */}
             <ChatWrapper fileid={fileid} pdfInfo={pdfInfo} />
           </div>
         </div>

@@ -2,17 +2,24 @@ import React from "react";
 import Messages from "./Messages";
 import ChatInput from "./ChatInput";
 
+// interface ChatWrapperProps {
+//   pdfInfo: {
+//     _id: string;
+//     name: string;
+//     userId: string;
+//     uploadStatus: string;
+//     url: string;
+//     key: string;
+//     createdAt: string;
+//     updatedAt: string;
+//   };
+// }
+
 interface ChatWrapperProps {
   pdfInfo: {
-    _id: string;
-    name: string;
-    userId: string;
-    uploadStatus: string;
-    url: string;
-    key: string;
-    createdAt: string;
-    updatedAt: string;
+    [key: string]: any;
   };
+  fileid: string;
 }
 
 const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
