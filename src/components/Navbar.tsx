@@ -9,6 +9,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import UserAccountNav from "./  UserAccountNav";
+import MobileNavBar from "./MobileNavBar";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -22,7 +23,8 @@ const Navbar = async () => {
             <span>inferno.</span>
           </Link>
 
-          {/* TODO add navbar */}
+          <MobileNavBar isAuth={!!user} />
+
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
               <>
