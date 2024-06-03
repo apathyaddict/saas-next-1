@@ -1,17 +1,19 @@
 import MaxWithWrapper from "@/components/MaxWithWrapper";
 import UpgradeButton from "@/components/UpgradeButton";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
 import { PLANS } from "@/config/stripe";
 import { cn } from "@/lib/utils";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ArrowRight, Check, HelpCircle, Minus } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const Page = () => {
   const { getUser } = getKindeServerSession();
@@ -170,26 +172,15 @@ const Page = () => {
                   <div className="border-t border-gray-200" />
                   <div className="p-5">
                     {plan === "Free" ? (
-                      <Link
-                        href={user ? "/dashboard" : "/sign-in"}
-                        className={buttonVariants({
-                          className: "w-full",
-                          variant: "secondary",
-                        })}>
-                        {user ? "Upgrade now" : "Sign up"}
-                        <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
-                    ) : user ? (
-                      <UpgradeButton />
+                      <UpgradeButton
+                        className={"secondary"}
+                        buttonText="Upgrade now"
+                      />
                     ) : (
-                      <Link
-                        href="/sign-in"
-                        className={buttonVariants({
-                          className: "w-full",
-                        })}>
-                        {user ? "Upgrade now" : "Sign up"}
-                        <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
+                      <UpgradeButton
+                        className={"primary"}
+                        buttonText="Upgrade now"
+                      />
                     )}
                   </div>
                 </div>
