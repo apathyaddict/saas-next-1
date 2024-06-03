@@ -21,7 +21,7 @@ export const GET = async (request: Request, { params }: { params: Params }) => {
 
 export const DELETE = async (
   request: Request,
-  { params }: { params: Params }
+  { params }: { params: Params },
 ) => {
   try {
     await connectToDB();
@@ -37,7 +37,7 @@ export const DELETE = async (
 
 export const PATCH = async (
   request: Request,
-  { params }: { params: Params }
+  { params }: { params: Params },
 ) => {
   const { fileId, message, userId } = await request.json();
 
@@ -60,7 +60,7 @@ export const PATCH = async (
         },
         updatedAt: Date.now(),
       },
-      { new: true }
+      { new: true },
     );
 
     if (!existingPdf) {

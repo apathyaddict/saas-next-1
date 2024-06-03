@@ -27,7 +27,8 @@ const UpgradeButton: React.FC<UpgradeButtonProps> = ({
         className: "w-full",
         // @ts-ignore
         variant: `${className}`,
-      })}>
+      })}
+    >
       {buttonText} <CirclePlus className="h-5 w-5 ml-1.5" />
     </Button>
   );

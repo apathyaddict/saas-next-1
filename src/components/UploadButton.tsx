@@ -69,6 +69,7 @@ const UploadDropZone = () => {
 
           const [fileResponse] = res;
           const key = fileResponse?.key;
+          const fileId = fileResponse.serverData.fileId;
 
           if (!key) {
             throw new Error("No file key in response");
@@ -77,7 +78,7 @@ const UploadDropZone = () => {
           clearInterval(progressInterval);
           setUploadProgress(100);
 
-          router.push(`/dashboard/${key}`);
+          router.push(`/dashboard/${fileId}`);
         } catch (error) {
           clearInterval(progressInterval);
           setUploadProgress(0);

@@ -39,7 +39,8 @@ const page = ({ params }: PageProps) => {
     getOneFile();
   }, []);
 
-  const url = pdfInfo.length > 0 ? pdfInfo[0].url : "";
+  // @ts-ignore
+  const url = pdfInfo.url;
 
   if (!pdfInfo) {
     return <div>File not found</div>;
@@ -53,6 +54,7 @@ const page = ({ params }: PageProps) => {
           <div className="flex-1 xl:flex">
             <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
               {/* Main area */}
+
               <PdfRenderer url={url} />
             </div>
           </div>

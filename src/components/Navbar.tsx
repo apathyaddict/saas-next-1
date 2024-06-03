@@ -8,7 +8,7 @@ import {
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 
-import UserAccountNav from "./  UserAccountNav";
+import UserAccountNav from "./UserAccountNav";
 import MobileNavBar from "./MobileNavBar";
 
 const Navbar = async () => {

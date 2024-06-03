@@ -31,6 +31,7 @@ export const ourFileRouter = {
         await newPdf.save();
 
         console.log("File saved successfully:", newPdf);
+        return { uploadedBy: metadata.userId, fileId: newPdf._id };
       } catch (error) {
         console.error("Failed to save file:", error);
       }
