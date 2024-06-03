@@ -9,14 +9,14 @@ export function cn(...inputs: ClassValue[]) {
 export function constructMetadata({
   title = "inferno. Dive In.",
   description = "Save your pdfs, leave comments, dive into the inferno.",
-  // image = "/thumbnail.png",
-  // icons = "/favicon.ico",
+  image = "/thumbnail.png",
+  icons = "/favicon.ico",
   noIndex = false,
 }: {
   title?: string;
   description?: string;
-  // image?: string;
-  // icons?: string;
+  image?: string;
+  icons?: string;
   noIndex?: boolean;
 } = {}): Metadata {
   return {
@@ -25,22 +25,22 @@ export function constructMetadata({
     openGraph: {
       title,
       description,
-      // images: [
-      //   {
-      //     url: image,
-      //   },
-      // ],
+      images: [
+        {
+          url: image,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      // images: [image],
+      images: [image],
       creator: "@eveseni",
     },
-    // icons,
+    icons,
     metadataBase: new URL("https://inferno-rosy.vercel.app/"),
-    themeColor: "#FFF",
+    // themeColor: "#FFF",
     ...(noIndex && {
       robots: {
         index: false,
