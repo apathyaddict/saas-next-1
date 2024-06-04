@@ -14,7 +14,6 @@ import { format } from "date-fns";
 import { Button } from "./ui/button";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { utapi } from "@/app/api/uploadthing/uploadthing";
 
 interface User {
   id: string;
@@ -72,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       setCurrentlyDeletingFile(null);
     } catch (error) {
       console.log(error);
-      // setCurrentlyDeletingFile(null);
+      setCurrentlyDeletingFile(null);
     }
   };
 

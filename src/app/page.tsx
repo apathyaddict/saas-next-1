@@ -1,7 +1,7 @@
 import MaxWithWrapper from "@/components/MaxWithWrapper";
 import { buttonVariants } from "@/components/ui/button";
 //npm lucide-react
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, SquareCode } from "lucide-react";
 import Image from "next/image";
 
 import Link from "next/link";
@@ -11,8 +11,8 @@ export default function Home() {
     <>
       <MaxWithWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
         <div className="mx-auto mb-4 flex max-w-fit items-center cursor-default justify-centers space-x-2 overflow-hidden rounded-full border boder-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
-          <p className="text-sm font-semibold text-gray-700">
-            follow the circles
+          <p className="text-md font-semibold text-gray-700">
+            inferno<span className="text-primary">.</span>
           </p>
         </div>
         <h1 className="max-w-4xl text-5xl font-bold lg:text-7xl">
@@ -26,7 +26,6 @@ export default function Home() {
         <Link
           className={buttonVariants({ size: "lg", className: "mt-5" })}
           href="/pricing"
-          target="blank"
         >
           Enter Now <ArrowRight className="ml-2 h-5 w-5" />
         </Link>
@@ -53,10 +52,10 @@ export default function Home() {
               <div className="mt-16 flow-root sm:mt-24 ">
                 <div className="-m-2 rounded-xl bg-gray-900/10 p-2 ring-1 ring-inset  ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <Image
-                    src="/dashboard-preview.jpg"
+                    src="/dashboard-preview.png"
                     alt="product preview"
-                    width={1364}
-                    height={866}
+                    width={2645}
+                    height={1459}
                     quality={100}
                     className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
                   />
@@ -86,10 +85,10 @@ export default function Home() {
         <div className="mb-12 px-6 lg:px-8">
           <div className="mx-auto  max-w-2xl sm:text-center">
             <h2 className="mt-2 font-bold text-4xl text-gray-900 sm:text-5xl">
-              Dive into the past in minutes
+              Dive into your PDFs in minutes
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Consult and interact with pdf files
+              Consult and interact with your files
             </p>
           </div>
         </div>
@@ -118,16 +117,15 @@ export default function Home() {
                 Upload your pdf file
               </span>
               <span className="mt-2 text-zinc-700">
-                We'll process your file to enable chatting and consulting
+                We'll process your file to enable rotating, zooming and
+                commenting
               </span>
             </div>
           </li>
           <li className="md:flex-1">
             <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
               <span className="text-sm font-medium text-primary">Step 3</span>
-              <span className="text-xl font-semibold">
-                Start Asking Questions
-              </span>
+              <span className="text-xl font-semibold">Start Leaving Notes</span>
               <span className="mt-2 text-zinc-700">
                 It's that simple. Try it out today.
               </span>
@@ -136,13 +134,13 @@ export default function Home() {
         </ol>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="mt-16 flow-root sm:mt-24 ">
-            <div className="-m-2 rounded-xl bg-gray-900/10 p-2 ring-1 ring-inset  ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+            <div className="-m-2 rounded-xl bg-gray-900/10 p-2 ring-1 ring-inset  ring-gray-900/10 lg:-m-2 lg:rounded-2xl lg:p-4">
               <Image
-                src="/file-upload-preview.jpg"
+                src="/file-upload-preview.png"
                 alt="uploading preview"
-                width={1419}
-                height={732}
-                quality={100}
+                width={2607}
+                height={1205}
+                quality={75}
                 className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
               />
             </div>
@@ -152,19 +150,39 @@ export default function Home() {
 
       {/* footer */}
 
-      <div className="mx-auto mb-32 mt-32 max-w-5xl sm:mt-56">
+      <div className="mx-auto mb-6 md:mb-20 mt-10 max-w-5xl sm:mt-56 ">
         <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
-          <div className="flex flex-row justify-around items-center gap-10">
-            <h3 className="text-xl font-semibold"> inferno.</h3>
-            <span className="mt-2 text-zinc-700">About</span>
-            <span className="mt-2 text-zinc-700">Contact Us</span>
+          <div className="flex flex-col md:flex-row justify-around items-center md:gap-10 gap-1">
+            <h3 className="text-xl font-semibold">
+              {" "}
+              inferno
+              <span className="text-primary">.</span>
+            </h3>
+            <span className="mt-2 text-xs md:text-base text-zinc-700">
+              NextJs/React
+            </span>
+            <span className="mt-2 text-xs md:text-base text-zinc-700">
+              MongoDB
+            </span>
 
-            <span className="mt-2 text-zinc-700">Disclaimer and Legal</span>
+            <span className="mt-2 text-xs md:text-base text-zinc-700">
+              PDF functionality
+            </span>
+
+            <a
+              href="http://www.eveseni.com"
+              target="_blank"
+              className="cursor-pointer"
+            >
+              <span className="text-sm md:font-medium text-zinc-700">
+                <SquareCode className="g-6 w- inline-block mr-2" />
+                Eve Aimée <span className="text-primary">Seni</span>
+              </span>
+            </a>
+
+            <span className="mt-2 text-xs text-zinc-700">©2024</span>
           </div>
         </div>
-        <p className="mx-auto text-center  mt-10 text-zinc-700">
-          Made by Eve Aimée Seni in nextjs
-        </p>
       </div>
     </>
   );
