@@ -9,8 +9,6 @@ interface PageProps {
   };
 }
 
-export const revalidate = 0;
-
 const page = ({ params }: PageProps) => {
   const { fileid } = params;
 
