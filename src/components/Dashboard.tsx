@@ -37,7 +37,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   useEffect(() => {
     const getFiles = async () => {
       try {
-        const response = await fetch(`/api/pdfFiles`);
+        const response = await fetch(`/api/pdfFiles`, { cache: "no-store" });
         const data = await response.json();
 
         console.log("data1", data);
