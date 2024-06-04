@@ -37,7 +37,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   useEffect(() => {
     const getFiles = async () => {
       try {
-        const response = await fetch(`/api/pdfFiles`, { cache: "no-store" });
+        const response = await fetch(`/api/pdfFiles`, {
+          next: { revalidate: 10 },
+        });
         const data = await response.json();
 
         console.log("data1", data);
@@ -66,6 +68,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ files: [fileKey] }),
+        next: { revalidate: 10 },
       });
 
       setCurrentlyDeletingFile(fileId);

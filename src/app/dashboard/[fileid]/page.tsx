@@ -28,7 +28,9 @@ const page = ({ params }: PageProps) => {
   useEffect(() => {
     const getOneFile = async () => {
       try {
-        const response = await fetch(`/api/pdfFiles/${fileid}`);
+        const response = await fetch(`/api/pdfFiles/${fileid}`, {
+          next: { revalidate: 10 },
+        });
         const data = await response.json();
 
         setPdfInfo(data);

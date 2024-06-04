@@ -35,6 +35,7 @@ const ChatWrapper = ({ pdfInfo, fileid }: ChatWrapperProps) => {
           headers: {
             "Content-Type": "application/json",
           },
+          next: { revalidate: 10 },
         });
 
         if (!response.ok) {
@@ -64,6 +65,7 @@ const ChatWrapper = ({ pdfInfo, fileid }: ChatWrapperProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message, id, userId }),
+        next: { revalidate: 10 },
       });
       if (response.ok) {
         const res = await response.json();
