@@ -4,6 +4,7 @@ import { connectToDB } from "@/utils/database";
 interface Params {
   id: string;
 }
+export const revalidate = 0;
 
 export const GET = async (request: Request, { params }: { params: Params }) => {
   try {

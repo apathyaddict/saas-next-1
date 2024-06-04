@@ -2,6 +2,8 @@ import { createRouteHandler } from "uploadthing/next"; // Importing createRouteH
 import { ourFileRouter } from "./core"; // Importing ourFileRouter from ./core
 import { UTApi } from "uploadthing/server";
 
+export const revalidate = 0;
+
 // Exporting GET and POST route handlers created using createRouteHandler
 export const { GET, POST } = createRouteHandler({
   router: ourFileRouter,

@@ -5,6 +5,8 @@ import PDF from "@/models/pdf";
 
 const f = createUploadthing();
 
+export const revalidate = 0;
+
 export const ourFileRouter = {
   pdfUploader: f({ pdf: { maxFileSize: "4MB" } })
     .middleware(async ({ req }) => {
