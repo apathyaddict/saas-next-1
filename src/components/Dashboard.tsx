@@ -40,10 +40,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         const response = await fetch(`/api/pdfFiles`);
         const data = await response.json();
 
+        console.log("data1", data);
+
         const userFiles = data.filter(
           (file: { userId: string }) => file.userId === user.id,
         );
+
         setFiles(userFiles);
+        console.log("files", files);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching files:", error);

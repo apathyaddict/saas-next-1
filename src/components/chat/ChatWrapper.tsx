@@ -50,7 +50,6 @@ const ChatWrapper = ({ pdfInfo, fileid }: ChatWrapperProps) => {
       }
     };
     if (fileid === undefined) {
-      console.log("undefinedId");
     } else {
       getMessages();
     }
