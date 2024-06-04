@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import PDF from "../../../../models/pdf";
 import { connectToDB } from "../../../../utils/database";
 
+export const revalidate = 0;
+
 export const POST = async (request: NextRequest) => {
   //add here what to save to file
   const { name, url, key, createdAt, updatedAt, uploadStatus, messages } =
