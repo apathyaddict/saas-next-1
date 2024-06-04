@@ -72,13 +72,15 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             disabled={currentPage <= 1}
             variant="ghost"
             aria-label="previous page"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          >
             <ChevronDownIcon className="h-4 w-4" />
           </Button>
 
           <form
             onSubmit={handleSubmit(handlePageSubmit)}
-            className="flex items-center gap-1.5">
+            className="flex items-center gap-1.5"
+          >
             <Input
               {...register("page")}
               defaultValue={currentPage}
@@ -102,7 +104,8 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               setCurrentPage((prev) => Math.min(prev + 1, numPages!))
             }
             variant="ghost"
-            aria-label="next page">
+            aria-label="next page"
+          >
             <ChevronUpIcon className="h-4 w-4" />
           </Button>
         </div>
@@ -137,7 +140,8 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             variant="ghost"
             onClick={() => {
               setRotation((prev) => prev + 90);
-            }}>
+            }}
+          >
             <RotateCw className="h-4 w-4" />
           </Button>
 
@@ -165,7 +169,8 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               }}
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               className="max-h-full"
-              file={url}>
+              file={url}
+            >
               {isLoading && renderedScale ? (
                 <Page
                   scale={scale}

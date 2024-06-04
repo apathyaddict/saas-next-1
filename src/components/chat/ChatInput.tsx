@@ -6,36 +6,13 @@ import { Send } from "lucide-react";
 interface ChatInputProps {
   fileId: string;
   userId: string;
+  addMessage: (message: string) => void;
 }
 
-const ChatInput = ({ fileId, userId }: ChatInputProps) => {
+const ChatInput = ({ fileId, userId, addMessage }: ChatInputProps) => {
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  const addMessage = async () => {
-    if (!message.trim()) return;
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(`/api/pdfFiles/${fileId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message, fileId, userId }),
-      });
-      if (response.ok) {
-        setMessage("");
-      } else {
-        console.error("Failed to send message");
-      }
-    } catch (error) {
-      console.error("Error sending message", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="absolute bottom-0 left-0 w-full">
@@ -53,20 +30,28 @@ const ChatInput = ({ fileId, userId }: ChatInputProps) => {
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
+                  if (
+                    e.key === "Enter" &&
+                    !e.shiftKey &&
+                    message.trim() !== ""
+                  ) {
+                    // Check if message is not empty
                     e.preventDefault();
-                    addMessage();
+                    addMessage(message);
+                    setMessage(""); // Clear the message after sending
                     textAreaRef.current?.focus();
                   }
                 }}
               />
               <Button
-                disabled={isLoading}
                 className="absolute bottom-1.5 right-[8px]"
                 aria-label="send message"
                 onClick={() => {
-                  addMessage();
-                  textAreaRef.current?.focus();
+                  if (message.trim() !== "") {
+                    addMessage(message);
+                    setMessage("");
+                    textAreaRef.current?.focus();
+                  }
                 }}
               >
                 <Send className="w-4 h-4" />
