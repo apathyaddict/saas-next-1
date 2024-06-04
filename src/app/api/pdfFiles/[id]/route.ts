@@ -19,20 +19,20 @@ export const GET = async (request: Request, { params }: { params: Params }) => {
   }
 };
 
-export const DELETE = async (
-  request: Request,
-  { params }: { params: Params },
-) => {
-  try {
-    await connectToDB();
+// export const DELETE = async (
+//   request: Request,
+//   { params }: { params: Params },
+// ) => {
+//   try {
+//     await connectToDB();
 
-    await PDF.findOneAndDelete({ string: params.id });
+//     await PDF.findOneAndDelete({ string: params.id });
 
-    return new Response("pdf deleted successfully", { status: 200 });
-  } catch (error) {
-    return new Response("Error deleting pdf", { status: 500 });
-  }
-};
+//     return new Response("pdf deleted successfully", { status: 200 });
+//   } catch (error) {
+//     return new Response("Error deleting pdf", { status: 500 });
+//   }
+// };
 
 export const PATCH = async (
   request: Request,

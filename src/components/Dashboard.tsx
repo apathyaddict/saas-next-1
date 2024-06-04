@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { Button } from "./ui/button";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { utapi } from "@/app/api/uploadthing/uploadthing";
 
 interface User {
   id: string;
@@ -54,8 +55,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
     getFiles();
   }, [user.id]);
 
-  const deleteFile = async (fileId: string) => {
+  const deleteFile = async (fileId: string, fileKey: string) => {
     try {
+      const response = await fetch("/api/uploadthing", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ files: [fileKey] }),
+      });
+
       setCurrentlyDeletingFile(fileId);
       await fetch(`/api/pdfFiles/${fileId}`, { method: "DELETE" });
       const filteredPdfs = files.filter((item) => item._id !== fileId);
@@ -63,7 +72,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       setCurrentlyDeletingFile(null);
     } catch (error) {
       console.log(error);
-      setCurrentlyDeletingFile(null);
+      // setCurrentlyDeletingFile(null);
     }
   };
 
@@ -82,7 +91,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   return (
     <main className="mx-auto max-w-7xl md:p-10 px-2">
       <div className="mt-8 flex flex-col justify-between gap-4 items-start border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
-        <h1 className="mb-3 font-bold text-gray-900 text-5xl">My Files</h1>
+        <h1 className="mb-3 font-bold text-gray-900 text-5xl">Library</h1>
         <UploadButton />
       </div>
 
@@ -134,7 +143,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                     {file.messages.length}
                   </div>
                   <Button
-                    onClick={() => deleteFile(file._id)}
+                    onClick={() => deleteFile(file._id, file.key)}
                     size="sm"
                     className="w-full"
                     variant="destructive"

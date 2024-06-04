@@ -19,17 +19,18 @@ interface Message {
   updatedAt: Date;
   userId: string;
 }
-const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
+const ChatWrapper = ({ pdfInfo, fileid }: ChatWrapperProps) => {
   const id = pdfInfo._id;
-  const fileId = pdfInfo._id;
+
   const userId = pdfInfo.userId;
   const [allmessages, setAllmessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getMessages = async () => {
+      console.log("fileid", fileid);
       try {
-        const response = await fetch(`/api/pdfFiles/${fileId}`, {
+        const response = await fetch(`/api/pdfFiles/${fileid}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -37,8 +38,10 @@ const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
         });
 
         if (!response.ok) {
+          console.log("failed", response);
           throw new Error("Error fetching messages");
         }
+
         const data = await response.json();
 
         setAllmessages(data.messages);
@@ -46,8 +49,12 @@ const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
         console.error("Error fetching messages", error);
       }
     };
-    getMessages();
-  }, [fileId]);
+    if (fileid === undefined) {
+      console.log("undefinedId");
+    } else {
+      getMessages();
+    }
+  }, [fileid]);
 
   const addMessage = async (message: string) => {
     setIsLoading(true);
@@ -60,6 +67,8 @@ const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
         body: JSON.stringify({ message, id, userId }),
       });
       if (response.ok) {
+        const res = await response.json();
+        console.log(res.messages);
         const now = new Date();
         const newMessage: Message = {
           message: message,
@@ -74,9 +83,6 @@ const ChatWrapper = ({ pdfInfo }: ChatWrapperProps) => {
           ...prevMessages,
           newMessage,
         ]);
-        console.log("newMessage", newMessage);
-
-        console.log(allmessages, "allmessages");
       } else {
         console.error("Failed to send message");
       }
