@@ -16,7 +16,7 @@ export default function Home() {
           </p>
         </div>
         <h1 className="max-w-4xl text-5xl font-bold lg:text-7xl">
-          Abandon <span className="text-primary">all hope</span> ye who enter
+          Regain <span className="text-primary">all hope</span> ye who enter
           here.
         </h1>
         <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
@@ -174,9 +174,10 @@ export default function Home() {
               target="_blank"
               className="cursor-pointer"
             >
-              <span className="text-sm md:font-medium text-zinc-700">
-                <SquareCode className="g-6 w- inline-block mr-2" />
-                Eve Aimée <span className="text-primary">Seni</span>
+              <span className="text-xs md:text-base text-zinc-700 ">
+                <SquareCode className="h-6 w-6 inline-block mr-2" />
+                Eve Aimée{" "}
+                <span className="text-xs md:text-base text-primary">Seni</span>
               </span>
             </a>
 
